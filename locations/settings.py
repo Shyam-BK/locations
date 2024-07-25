@@ -27,7 +27,15 @@ SECRET_KEY = 'django-insecure-9g$wv!%3v5v!2ea-b)kdwvx!$39ilc*-u+@krr7bdv=-*%q0=u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','6724-27-4-107-136.ngrok-free.app', 'locations-1lyx.onrender.com']
+# ALLOWED_HOSTS = ['127.0.0.1','6724-27-4-107-136.ngrok-free.app', 'locations-1lyx.onrender.com', 'localhost','192.168.1.2']
+
+ALLOWED_HOSTS = ['*']
+# CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    # Add other allowed origins here
+]
 
 
 # Application definition
@@ -42,9 +50,11 @@ INSTALLED_APPS = [
     'locators',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'locations.urls'
@@ -140,3 +151,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Set STATIC_ROOT here
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
