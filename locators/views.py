@@ -8,7 +8,7 @@ from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth import get_user_model
 from .serializer import UserSerializer, LatLongSerializer, LoginSerializer, LatLongUpdateSerializer, CustomUserLatLongSerializer
 from .models import LatLong, CustomUser
-
+from .permissions import IsSuperUser
 
 User = get_user_model()
 
@@ -85,6 +85,7 @@ class LatLongUpdateView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class CustomUserLatLongListView(generics.ListAPIView):
+    permission_classes = [IsSuperUser]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserLatLongSerializer
     def get_queryset(self):
@@ -93,9 +94,11 @@ class CustomUserLatLongListView(generics.ListAPIView):
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsSuperUser]
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
 class LatLongViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsSuperUser]
     queryset = LatLong.objects.all()
     serializer_class = LatLongSerializer
