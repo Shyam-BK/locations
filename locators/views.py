@@ -86,6 +86,7 @@ class LatLongUpdateView(APIView):
     
 class CustomUserLatLongListView(generics.ListAPIView):
     permission_classes = [IsSuperUser]
+    authentication_classes = [TokenAuthentication]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserLatLongSerializer
     def get_queryset(self):
@@ -95,10 +96,12 @@ class CustomUserLatLongListView(generics.ListAPIView):
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsSuperUser]
+    authentication_classes = [TokenAuthentication]
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
 class LatLongViewSet(viewsets.ModelViewSet):
     permission_classes = [IsSuperUser]
+    authentication_classes = [TokenAuthentication]
     queryset = LatLong.objects.all()
     serializer_class = LatLongSerializer
