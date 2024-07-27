@@ -19,7 +19,11 @@ from django.urls import path,include
 from rest_framework import routers
 # from locators.views import *
 from django.urls import path
-from locators.views import UserRegistrationView, LoginView, UserDetailView, LatLongUpdateView ,LatLongViewSet, CustomUserViewSet # type: ignore
+from locators.views import (
+    UserRegistrationView, LoginView, UserDetailView,
+    LatLongUpdateView ,LatLongViewSet, CustomUserViewSet,
+    CustomUserLatLongListView
+)
 
 
 router = routers.DefaultRouter()
@@ -33,6 +37,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('get_user_data/', UserDetailView.as_view(), name='user-detail'),
     path('update_latlong/', LatLongUpdateView.as_view(), name='update-latlong'),
+    path('users_latlong/', CustomUserLatLongListView.as_view(), name='user-list'),
 
 
 ]

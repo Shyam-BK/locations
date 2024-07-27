@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
-from .models import LatLong
+from .models import LatLong, CustomUser
 
 User = get_user_model()
 
@@ -43,3 +43,12 @@ class LatLongUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = LatLong
         fields = ['latitude', 'longitude']
+
+
+class CustomUserLatLongSerializer(serializers.ModelSerializer):
+    latitude = serializers.FloatField(source='latlong.latitude', read_only=True)
+    longitude = serializers.FloatField(source='latlong.longitude', read_only=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'firstName', 'lastName', 'phoneNumber', 'serviceProviding', 'latitude', 'longitude']
